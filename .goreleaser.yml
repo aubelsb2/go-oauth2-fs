@@ -1,0 +1,55 @@
+#project_name: form0-proxy-auth-rules
+
+before:
+  hooks:
+    - go mod tidy
+    - go env
+dist: release-dist
+builds:
+  - id: addclient
+    binary: go-oauth2-fs-addclient
+    dir: ./cmd/addclient
+    main: .
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - 6
+      - 7
+archives:
+  -
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+nfpms:
+  -
+    vendor: base2Services
+    homepage: https://github.com/aubelsb2/go-oauth2-fs
+    maintainer: Arran Ubels <a.ubels@base2services.com>
+    description: NA
+    license: Private
+    formats:
+      - apk
+      - deb
+      - rpm
+    release: 1
+    section: default
+    priority: extra
