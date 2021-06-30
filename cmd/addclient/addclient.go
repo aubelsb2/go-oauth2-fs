@@ -5,7 +5,7 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"flag"
-	go_oauth2_fs "github.com/officeadminsorted/form0-proxy-auth-rules/oauth/go-oauth2-fs"
+	go_oauth2_fs "github.com/aubelsb2/go-oauth2-fs"
 	"github.com/officeadminsorted/oauth2/v5/models"
 	"github.com/segmentio/ksuid"
 	"log"
